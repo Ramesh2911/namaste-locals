@@ -1,0 +1,121 @@
+/*  highlightSecType1 start -------------- */
+
+.highlightSecType1{ background:#ea2b2b; border-radius: 10px; overflow: hidden; height: 0; min-height: 175px; padding-bottom: 14%; position: relative; container-type: size; container-name: highlightSecType1;}
+
+.highlightSecType1 figure {max-width: 55%; display: flex; justify-content: flex-end; overflow: hidden; position: absolute; top: 0; bottom: 0; margin: auto; right: 0;}
+.highlightSecType1 figure img{ width: 100%; display: block;}
+.highlightSecType1 figure:before { content:''; display: block; height: 100%; width: 25px; position: absolute; bottom: 0; top: 0; margin: auto; left:0;  background:url(../images/carv.svg) no-repeat 0 50%; background-size: auto 100%; z-index: 2;}
+
+.highlightSecType1 aside{ padding: 0 5%;  position: absolute; top: 0; bottom: 0; margin: auto; left: 0; display: flex;  flex-direction: column;  justify-content: center; align-items: flex-start;}
+.highlightSecType1 aside a{  display: flex;  flex-direction: column;  justify-content: center; align-items: flex-start;}
+.highlightSecType1 span{ display:inline-block; color: #FFF; font-size:1.8vw;}
+.highlightSecType1 h2{ color: #FFF; font-size:2.5vw; line-height:2.5vw; font-weight: 600; margin-bottom: 15px; position: relative; z-index: 2;}
+.highlightSecType1 strong{ display:inline-block; color: #FFF;  font-weight:500; font-size:1.3vw; background-color: #522313; padding: 10px 20px; border-radius: 5px;}
+
+@media all and (max-width:1000px){  
+    .highlightSecType1{min-height: 135px;}
+}
+
+@media all and (max-width:550px){  
+   .highlightSecType1{ display: block; height:auto; min-height:0px; padding-bottom:0; container-type: normal;}
+   .highlightSecType1 aside{text-align: center; width: 100%; position: relative; padding: 30px 5%; display: block;}
+   .highlightSecType1 aside a{ display: block;}
+   .highlightSecType1 figure { width: 100%; max-width: 100%; display: flex; justify-content: flex-end; position:relative;}
+   .highlightSecType1 figure:before { display: none;}
+   .highlightSecType1 figure img{ height:auto; width: 100%;}
+   .highlightSecType1 span{font-size:16px;}
+   .highlightSecType1 h2{ font-size:20px; line-height:20px; }
+   .highlightSecType1 strong{ font-size:14px;} 
+   }
+
+@container highlightSecType1 (max-width: 1150px) and (min-width: 800px) {
+    .highlightSecType1 span{font-size:16px;}
+   .highlightSecType1 h2{ font-size:30px; line-height:30px; }
+   .highlightSecType1 strong{ font-size:14px;} 
+}
+
+/*  highlightSecType1 end ---------------- */
+
+/*  highlightSecType2 start ---------------- */
+
+.highlightSecType2{ display: flex; justify-content: space-between; flex-wrap: wrap;}
+.highlightSecType2 aside{ width:23.5%; height: 240px; margin-bottom: 30px; border-radius: 10px; padding: 25px; position: relative;}
+.highlightSecType2 aside h2{ color: #FFF; font-size: 30px; line-height: 30px; font-weight: 600; width: 60%;}
+.highlightSecType2 aside span{ color: rgba(255,255,255,0.7); font-size:16px; display: block;}
+.highlightSecType2 aside strong{ display:inline-block; color: #000;  font-weight:500; font-size:16px; background-color: #FFF; padding:5px 15px; border-radius: 5px; position: absolute; left: 25px; bottom:25px;}
+.highlightSecType2 aside:hover strong{background-color:rgba(255, 255, 255, 0.7); color: rgba(0, 0, 0, 0.8); }
+
+.hst2Bg1{ background: #5bb0c5 url(../images/highlight-doctor.jpg) no-repeat 100% 100%;}
+.hst2Bg2{ background: #4770fe url(../images/highlight-repairAndServices.jpg) no-repeat 100% 100%}
+.hst2Bg3{ background: #f49839 url(../images/highlight-courierAndServices.jpg) no-repeat 100% 100%}
+.hst2Bg4{ background: #33899f url(../images/highlight-hospital.jpg) no-repeat 100% 100%}
+
+@media all and (max-width:1024px){  
+    .highlightSecType2 aside{ width:48.5%; }
+}
+
+@media all and (max-width:600px){  
+    .highlightSecType2 aside{ width:100%; }
+}
+/*  highlightSecType2 end ---------------- */
+
+/*  quick link start ---------------- */
+.quickLinks{ display: flex; flex-wrap: wrap; justify-content:space-around;}
+.quickLinks a{ display: block; width:140px; margin:0 0 20px; text-align: center; color: #100d44;}
+.quickLinks a:hover{text-decoration: underline;}
+.quickLinks a span{ display: flex; width: 75px; height: 75px; justify-content: center; align-items: center; border-radius: 50%; background-color: #CCC; margin: 0 auto 10px;}
+.quickLinks a span.iconPinkBg{ background-color: #fde4e5;}
+.quickLinks a span.iconYellowBg{ background-color: #fff8e4;}
+.quickLinks a span.iconSkyBg{ background-color: #e4eaff;}
+.quickLinks a span.iconGreenBg{ background-color: #ddf6f0;}
+/*  quick link end ---------------- */
+
+/*  card start --------------- */
+.cardType1{ float: left; border-radius: 10px; border:1px solid #e0e0e0; overflow: hidden; margin:0 15px;}
+.cardType1 figure img{ width: 100%; display: block;}
+.cardType1 div{ padding: 15px 15px 20px;}
+.cardType1 h2{margin-bottom: 15px; font-size: 20px; font-weight: 500; color: #100d44;white-space: nowrap;}
+.cardType1 a{display:inline-block; color: #FFF;  font-weight:500; font-size:16px; background-color: #dd3128; padding:5px 15px; border-radius: 5px; ; bottom:25px;}
+.cardType1 a:hover{background:#bb1c1c; }
+
+.cardType2{ float: left; border-radius: 10px; border:1px solid #e0e0e0; overflow: hidden; margin:0 15px;}
+.cardType2 figure img{ width: 100%; display: block;}
+.cardType2 div{ padding: 15px 15px 20px; background-color: #dd3128;}
+.cardType2 h2{margin-bottom: 15px; font-size: 20px; font-weight: 500; color: #FFF;}
+.cardType2 a{display:inline-block; color: #bb1c1c;  font-weight:500; font-size:16px; background-color: #FFF; padding:5px 15px; border-radius: 5px; ; bottom:25px;}
+
+.cardType3{float: left; border-radius: 10px; border:1px solid #e0e0e0; overflow: hidden; margin:0 15px; max-width: 450px;color:#100d44;}
+.cardType3>div{ padding: 20px; display: flex; justify-content: space-between; align-items: center;}
+.cardType3>div aside h2{color:#100d44; font-size: 22px; font-weight: 500;}
+.cardType3>div aside span{color:#9f9eb4;}
+.cardType3>div a.chatBtn{background: #ea2b2b url(../images/icon-chat.png) no-repeat 10px 48%; padding:0 14px 0 35px; color:#FFF; height: 40px; line-height: 40px; border-radius: 4px;}
+.cardType3>div a.chatBtn:hover{background:#bb1c1c url(../images/icon-chat.png) no-repeat 10px 48%; }
+.cardType3>figure img{ width: 100%; display: block;}
+.cardType3>article{ padding: 20px;}
+.cardType3>article div.customer{ overflow: hidden;}
+.cardType3>article div.customer figure{ float: left; border-radius: 3px; overflow: hidden; margin-right: 15px;}
+.cardType3>article div.customer aside{float: left;}
+.cardType3>article div.customer aside strong{font-weight: 500;}
+.cardType3>article div.customer aside span{display: block;color:#9f9eb4; font-size: 12px;}
+.cardType3>article div.rating{ padding: 10px 0;}
+
+.cardType4{float: left; border-radius: 10px; border:1px solid #e0e0e0; overflow: hidden;  margin:0 15px; max-width: 450px;color:#100d44;}
+.cardType4>figure img{ width: 100%; display: block;}
+.cardType4>article{ padding: 20px;}
+
+.cardType5{ overflow: hidden; border-radius: 10px; width: 30%;  margin:0 15px; position: relative;}
+.cardType5 img{ width: 100%; display: block;}
+.cardType5 div{ position: absolute; z-index: 2; margin-top: 15px; color:#88abd2; font-size: 18px; font-weight:500; }
+.cardType5 div span{ display: block; color: #FFF;}
+.cardType5 div.tl{ left:20px; top:20px;}
+.cardType5 div.bl{ left:20px; bottom:20px; }
+.cardType5 div.tr{ right:20px; top:20px;}
+.cardType5 div.br{ right:20px; bottom:20px;}
+.cardType5:hover img{ transform: scale(1.2);}
+.cardType5.fullWidth{ width:100%;  margin:0 0 30px;}
+/*  card end --------------- */
+
+.activity{ display: flex; justify-content: space-between; flex-wrap: wrap;}
+.activity .cardType3{ margin-bottom: 30px;}
+.loadMore{ padding: 30px 0; text-align: center;}
+.loadMore a{background: #ea2b2b; padding:0 25px; color:#FFF; font-weight: 500; font-size:16px; height: 40px; line-height: 40px; border-radius: 4px; display: inline-block; width: 50%; max-width: 300px;}

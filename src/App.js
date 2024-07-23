@@ -1,9 +1,10 @@
 import './App.css';
+import Router from './router/Router';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
-      Hii Ramesh !
+      <Router {...props} />
     </div>
   );
 }
