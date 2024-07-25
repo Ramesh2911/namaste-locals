@@ -1,14 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { API_BUSINESS_CATEGORY_LIST } from '../../../config/Api';
 
 
 const Home = (props) => {
-
+   const navigate = useNavigate();
    const [isNavOpen, setNavOpen] = useState(false);
+   const [businessCategoryData, setBusinessCategoryData] = useState([]);
+   const [showMore, setShowMore] = useState(false);
 
    const toggleNav = () => {
       setNavOpen(!isNavOpen);
    };
 
+   useEffect(() => {
+      fetchBusinessCategoryList();
+   }, []);
+
+
+   const fetchBusinessCategoryList = () => {
+      props
+         .callRequest("POST", API_BUSINESS_CATEGORY_LIST, true, null)
+         .then(({ data }) => {
+            setBusinessCategoryData(data?.categoryList?.children);
+         })
+         .catch((err) => {
+            console.log(err);
+         });
+   };
+
+   const categoriesToShow = showMore ? businessCategoryData : businessCategoryData.slice(0, 19);
+
+   const iconClasses = ['iconPinkBg', 'iconYellowBg', 'iconSkyBg', 'iconGreenBg'];
 
    return (
       <>
@@ -88,7 +111,12 @@ const Home = (props) => {
                            </ul>
                         </div>
                      </div>
-                     <input type="button" className="btnType1" value="Login / Signup" />
+                     <input
+                        type="button"
+                        className="btnType1"
+                        value="Login / Signup"
+                        onClick={() => navigate('/login')}
+                     />
                   </nav>
                </section>
             </header>
@@ -98,7 +126,7 @@ const Home = (props) => {
                <aside>
                   <h2>Everything Near Mira Bhayendar Road</h2>
                   <div className="top_search">
-                     <input type="text" className="site_search" onfocus="if(this.value=='Site Search'){this.value=''}" onblur="if(this.value==''){this.value='Site Search'}" value="Site Search" />
+                     <input type="text" className="site_search" onFocus="if(this.value=='Site Search'){this.value=''}" onBlur="if(this.value==''){this.value='Site Search'}" value="Site Search" />
                      <input className="site_search_btn" type="button" value="" />
                   </div>
                </aside>
@@ -140,33 +168,27 @@ const Home = (props) => {
                </aside>
             </section>
             <section className="center quickLinks">
-               <a href="#"><span className="iconPinkBg"><img src="./images/icon-food.png" alt="" /></span>Food</a>
-               <a href="#"><span className="iconYellowBg"><img src="./images/icon-Doctor.png" alt="" /></span>Doctor</a>
-               <a href="#"><span className="iconSkyBg"><img src="./images/icon-travel.png" alt="" /></span>Travel</a>
-               <a href="#"><span className="iconGreenBg"><img src="./images/icon-beauty.png" alt="" /></span>Beauty</a>
-               <a href="#"><span className="iconSkyBg"><img src="./images/icon-gym.png" alt="" /></span>gym</a>
-               <a href="#"><span className="iconGreenBg"><img src="./images/icon-realested.png" alt="" /></span>Realested</a>
-               <a href="#"><span className="iconPinkBg"><img src="./images/icon-electrician.png" alt="" /></span>Electricins</a>
-               <a href="#"><span className="iconYellowBg"><img src="./images/icon-petes.png" alt="" /></span>Petes</a>
-               <a href="#"><span className="iconPinkBg"><img src="./images/icon-pg-hostel.png" alt="" /></span>Pg/Hostel</a>
-               <a href="#"><span className="iconYellowBg"><img src="./images/icon-sellCar.png" alt="" /></span>Sell Cars</a>
-               <a href="#"><span className="iconSkyBg"><img src="./images/icon-medicines.png" alt="" /></span>Medicines</a>
-               <a href="#"><span className="iconGreenBg"><img src="./images/icon-babyCare.png" alt="" /></span>Baby Care</a>
-               <a href="#"><span className="iconSkyBg"><img src="./images/icon-cakeShop.png" alt="" /></span>Cake Shop</a>
-               <a href="#"><span className="iconGreenBg"><img src="./images/icon-carpenter.png" alt="" /></span>Carpenter</a>
-               <a href="#"><span className="iconPinkBg"><img src="./images/icon-banquets.png" alt="" /></span>Banquets</a>
-               <a href="#"><span className="iconYellowBg"><img src="./images/icon-skin.png" alt="" /></span>Skin</a>
-               <a href="#"><span className="iconSkyBg"><img src="./images/icon-salon.png" alt="" /></span>Salon</a>
-               <a href="#"><span className="iconGreenBg"><img src="./images/icon-spa.png" alt="" /></span>Spa</a>
-               <a href="#"><span className="iconSkyBg"><img src="./images/icon-hospital.png" alt="" /></span>Hospitals</a>
-               <a href="#"><span className="iconPinkBg"><img src="./images/icon-more.png" alt="" /></span>more</a>
+               {categoriesToShow?.map((category, index) => (
+                  <a href="#" key={category.businessCategoryID}>
+                     <span className={iconClasses[index % iconClasses.length]}>
+                        <img src={`http://staging.namastelocals.com/AppIcons/${category.categoryIcon}`} alt={category.categoryName} />
+                     </span>
+                     {category.categoryName}
+                  </a>
+               ))}
+               <a href="#" onClick={() => setShowMore(!showMore)}>
+                  <span className={showMore ? 'iconCloseBg' : 'iconMoreBg'}>
+                     <img src={`./images/icon-${showMore ? 'cross' : 'more'}.png`} alt={showMore ? 'Less' : 'More'} />
+                  </span>
+                  {showMore ? 'Less' : 'More'}
+               </a>
             </section>
          </div>
          <div className="borderSec">
             <section className="center">
                <h2 className="headingType1">Repair &amp; Services</h2>
                <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabindex="0"><div className="slick-track" style={{ opacity: 1, width: '4896px', transform: 'translate3d(-1728px, 0px, 0px)' }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
+                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: '4896px', transform: 'translate3d(-1728px, 0px, 0px)' }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
                      <figure>
                         <img src="./images/card3.jpg" alt="" />
                      </figure>
@@ -289,7 +311,7 @@ const Home = (props) => {
             <section className="center">
                <h2 className="headingType1">Daily Needs</h2>
                <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabindex="0"><div className="slick-track" style={{ opacity: 1, width: "4896px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
+                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "4896px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
                      <figure>
                         <img src="./images/dnThumb3.jpg" alt="" />
                      </figure>
@@ -409,7 +431,7 @@ const Home = (props) => {
             <section className="center">
                <h2 className="headingType1">Health &amp; Wellness</h2>
                <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabindex="0"><div className="slick-track" style={{ opacity: 1, width: "4896px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
+                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "4896px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
                      <figure>
                         <img src="./images/helthThumb3.jpg" alt="" />
                      </figure>
@@ -530,7 +552,7 @@ const Home = (props) => {
             <section className="center">
                <h2 className="headingType1">Popular Searches</h2>
                <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabindex="0"><div className="slick-track" style={{ opacity: 1, width: "5184px", transform: "translate3d(-2016px, 0px, 0px)" }}><li className="cardType2 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
+                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "5184px", transform: "translate3d(-2016px, 0px, 0px)" }}><li className="cardType2 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
                      <figure>
                         <img src="./images/card7.jpg" alt="" />
                      </figure>
@@ -728,7 +750,7 @@ const Home = (props) => {
             <section className="center mb-30">
                <h2 className="headingType1">heading</h2>
                <ul className="slider2 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabindex="0"><div className="slick-track" style={{ opacity: 1, width: "4800px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType4 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "450px" }}>
+                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "4800px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType4 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "450px" }}>
                      <figure><img src="./images/cardType4-2.jpg" alt="" /></figure>
                      <article>
                         <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
@@ -824,7 +846,7 @@ const Home = (props) => {
             <section className="center mb-30">
                <h2 className="headingType1">Popular Brands</h2>
                <ul className="slider2 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabindex="0"><div className="slick-track" style={{ opacity: 1, width: "5280px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType5 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="0" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg1.jpg" className="transition" alt="" /><div className="tl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="1" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="bl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide" data-slick-index="3" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide" data-slick-index="4" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg1.jpg" className="transition" alt="" /><div className="tl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="6" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="bl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li></div></div>
+                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "5280px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType5 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="0" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg1.jpg" className="transition" alt="" /><div className="tl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="1" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="bl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide" data-slick-index="3" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide" data-slick-index="4" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg1.jpg" className="transition" alt="" /><div className="tl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="6" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="bl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li></div></div>
                   <span href="" data-role="none" className="ps_prev5" style={{ display: "block" }}>Previous</span><span href="" data-role="none" className="ps_next5" style={{ display: "block" }}>Next</span></ul>
             </section>
          </div>

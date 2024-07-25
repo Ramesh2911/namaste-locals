@@ -1,4 +1,5 @@
 import './App.css';
+import Common from './helpers/common';
 import Router from './router/Router';
 
 function App(props) {
@@ -9,4 +10,4 @@ function App(props) {
   );
 }
 
-export default App;
+export default Common(App);

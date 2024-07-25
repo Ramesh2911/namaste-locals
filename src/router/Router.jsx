@@ -1,8 +1,7 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Header from "../components/layouts/Header";
-import Footer from "../components/layouts/Footer";
-import Home from "../components/pages/Home";
+import { Routes, Route } from "react-router-dom";
+import Home from "../components/pages/home/Home";
+import Login from "../components/pages/authentication/Login";
 
 
 export default function Router(props) {
@@ -11,9 +10,8 @@ export default function Router(props) {
    return (
       <>
          <Routes>
-            {/* <Route path="/" element={<Header {...props} />} /> */}
             <Route path="/" element={<Home {...props} />} />
-            {/* <Route path="/" element={<Footer {...props} />} /> */}
+            <Route path="/login" element={<Login {...props} />} />
          </Routes>
       </>
    );
