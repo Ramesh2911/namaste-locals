@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState, } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { API_BUSINESS_CATEGORY_LIST } from '../../../config/Api';
-
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
 
 const Home = (props) => {
    const navigate = useNavigate();
+   const repairCarousel = useRef(null);
+   const dailyCarousel = useRef(null);
+   const healthCarousel = useRef(null);
+   const popularSearchesCarousel = useRef(null);
+   const headingCarousel = useRef(null);
+   const popularBrandsCarousel = useRef(null);
    const [isNavOpen, setNavOpen] = useState(false);
    const [businessCategoryData, setBusinessCategoryData] = useState([]);
    const [showMore, setShowMore] = useState(false);
@@ -17,7 +24,6 @@ const Home = (props) => {
       fetchBusinessCategoryList();
    }, []);
 
-
    const fetchBusinessCategoryList = () => {
       props
          .callRequest("POST", API_BUSINESS_CATEGORY_LIST, true, null)
@@ -29,9 +35,373 @@ const Home = (props) => {
          });
    };
 
+   const handleCategoryClick = (category) => {
+      navigate('/subProducts', { state: { children: category.children } });
+   };
+
    const categoriesToShow = showMore ? businessCategoryData : businessCategoryData.slice(0, 19);
 
    const iconClasses = ['iconPinkBg', 'iconYellowBg', 'iconSkyBg', 'iconGreenBg'];
+
+
+   const items = [
+      {
+         imgSrc: './images/card3.jpg',
+         title: 'Bike Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card4.jpg',
+         title: 'Computer Repair',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card1.jpg',
+         title: 'Security System Dealers',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card4.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card1.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/cardImg1.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card2.jpg',
+         title: 'Car Services',
+         link: '#'
+      }
+   ];
+
+   const renderItems = () =>
+      items.map((item, index) => (
+         <div className="cardType1" key={index}>
+            <figure>
+               <img src={item.imgSrc} alt={item.title} />
+            </figure>
+            <div>
+               <h2>{item.title}</h2>
+               <a href={item.link}>Enquire Now</a>
+            </div>
+         </div>
+      ));
+
+   const dailyItems = [
+      {
+         imgSrc: './images/dnThumb3.jpg',
+         title: 'Electrician',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb4.jpg',
+         title: 'Pest Control',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb5.jpg',
+         title: 'Plumbing',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb1.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb2.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb1.jpg',
+         title: 'Grocery',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb2.jpg',
+         title: 'Movies',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb3.jpg',
+         title: 'Electrician',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb3.jpg',
+         title: 'Electrician',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb4.jpg',
+         title: 'Pest Control',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb5.jpg',
+         title: 'Plumbing',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb1.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb2.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb1.jpg',
+         title: 'Grocery',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb2.jpg',
+         title: 'Movies',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb3.jpg',
+         title: 'Electrician',
+         link: '#'
+      },
+      {
+         imgSrc: './images/dnThumb4.jpg',
+         title: 'Plumbing',
+         link: '#'
+      },
+   ];
+
+   const dailyRenderItems = () =>
+      dailyItems.map((item, index) => (
+         <div className="cardType1" key={index}>
+            <figure>
+               <img src={item.imgSrc} alt={item.title} />
+            </figure>
+            <div>
+               <h2>{item.title}</h2>
+               <a href={item.link}>Enquire Now</a>
+            </div>
+         </div>
+      ));
+
+   const helthItems = [
+      {
+         imgSrc: './images/helthThumb3.jpg',
+         title: 'Salons',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb4.jpg',
+         title: 'Spa $ Massage',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb5.jpg',
+         title: 'Yoga classNamees',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb1.jpg',
+         title: 'Gym',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb2.jpg',
+         title: 'Beauty Parlours',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb3.jpg',
+         title: 'Salons',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb4.jpg',
+         title: 'Spa $ Massage',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb5.jpg',
+         title: 'Yoga classNamees',
+         link: '#'
+      },
+      {
+         imgSrc: './images/helthThumb1.jpg',
+         title: 'Gym',
+         link: '#'
+      },
+   ];
+
+   const helthRenderItems = () =>
+      helthItems.map((item, index) => (
+         <div className="cardType1" key={index}>
+            <figure>
+               <img src={item.imgSrc} alt={item.title} />
+            </figure>
+            <div>
+               <h2>{item.title}</h2>
+               <a href={item.link}>Enquire Now</a>
+            </div>
+         </div>
+      ));
+
+   const PopularSearchesItems = [
+      {
+         imgSrc: './images/card7.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card8.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card5.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card6.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card8.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/cardImg2.jpg',
+         title: 'Ac Services',
+         link: '#'
+      },
+      {
+         imgSrc: './images/card7.jpg',
+         title: 'Ac Services',
+         link: '#'
+      }
+   ];
+
+   const PopularSearchesRenderItems = () =>
+      PopularSearchesItems.map((item, index) => (
+         <div className="cardType2" key={index}>
+            <figure>
+               <img src={item.imgSrc} alt={item.title} />
+            </figure>
+            <div>
+               <h2>{item.title}</h2>
+               <a href={item.link}>Enquire Now</a>
+            </div>
+         </div>
+      ));
+
+   const headingItems = [
+      {
+         imgSrc: './images/cardType4-2.jpg',
+         text: 'Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy...',
+         link: '#'
+      },
+      {
+         imgSrc: './images/cardType4-3.jpg',
+         text: 'Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy...',
+         link: '#'
+      },
+      {
+         imgSrc: './images/cardType4-1.jpg',
+         text: 'Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy...',
+         link: '#'
+      },
+      {
+         imgSrc: './images/cardType4-4.jpg',
+         text: 'Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy...',
+         link: '#'
+      },
+      {
+         imgSrc: './images/cardType4-1.jpg',
+         text: 'Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy Text Dummy Dummy Text Dummy Text Dummy Text Dummy...',
+         link: '#'
+      }
+   ];
+
+   const headingRenderItems = () =>
+      headingItems.map((item, index) => (
+         <div className="cardType4" key={index}>
+            <figure>
+               <img src={item.imgSrc} alt={item.text} />
+            </figure>
+            <article>
+               <p>{item.text}</p>
+               <a href={item.link} className="link_btn">Explore</a>
+            </article>
+         </div>
+      ));
+
+   const popularBrandsItems = [
+      {
+         imgSrc: './images/pbImg1.jpg',
+         altText: 'Image 1',
+         divClass: 'tl',
+         spanText: 'Dummy Text',
+         description: 'Dummy Text'
+      },
+      {
+         imgSrc: './images/pbImg2.jpg',
+         altText: 'Image 2',
+         divClass: 'bl',
+         spanText: 'Dummy Text',
+         description: 'Dummy Text'
+      },
+      {
+         imgSrc: './images/pbImg3.jpg',
+         altText: 'Image 3',
+         divClass: 'tr',
+         spanText: 'Dummy Text',
+         description: 'Dummy Text'
+      },
+      {
+         imgSrc: './images/pbImg2.jpg',
+         altText: 'Image 2',
+         divClass: 'bl',
+         spanText: 'Dummy Text',
+         description: 'Dummy Text'
+      },
+      {
+         imgSrc: './images/pbImg3.jpg',
+         altText: 'Image 3',
+         divClass: 'tr',
+         spanText: 'Dummy Text',
+         description: 'Dummy Text'
+      },
+   ];
+
+   const handleDragStart = (e) => e.preventDefault();
+
+   const popularBrandsRenderItems = () =>
+      popularBrandsItems.map((item, index) => (
+         <div className="cardType5" key={index}>
+            <a href="#">
+               <img src={item.imgSrc} alt={item.altText} className="transition" onDragStart={handleDragStart} />
+               <div className={item.divClass}>
+                  <span>{item.spanText}</span>
+                  {item.description}
+               </div>
+            </a>
+         </div>
+      ));
+
 
    return (
       <>
@@ -126,8 +496,17 @@ const Home = (props) => {
                <aside>
                   <h2>Everything Near Mira Bhayendar Road</h2>
                   <div className="top_search">
-                     <input type="text" className="site_search" onFocus="if(this.value=='Site Search'){this.value=''}" onBlur="if(this.value==''){this.value='Site Search'}" value="Site Search" />
-                     <input className="site_search_btn" type="button" value="" />
+                     <input
+                        type="text"
+                        className="site_search"
+                        //onFocus="if(this.value=='Site Search'){this.value=''}"
+                        //onBlur="if(this.value==''){this.value='Site Search'}"
+                        value="Site Search"
+                     />
+                     <input
+                        className="site_search_btn"
+                        type="button"
+                        value="" />
                   </div>
                </aside>
                <aside className="downlodAppHolder">
@@ -169,7 +548,11 @@ const Home = (props) => {
             </section>
             <section className="center quickLinks">
                {categoriesToShow?.map((category, index) => (
-                  <a href="#" key={category.businessCategoryID}>
+                  <a
+                     href=""
+                     key={category.businessCategoryID}
+                     onClick={() => handleCategoryClick(category)}
+                  >
                      <span className={iconClasses[index % iconClasses.length]}>
                         <img src={`http://staging.namastelocals.com/AppIcons/${category.categoryIcon}`} alt={category.categoryName} />
                      </span>
@@ -187,481 +570,81 @@ const Home = (props) => {
          <div className="borderSec">
             <section className="center">
                <h2 className="headingType1">Repair &amp; Services</h2>
-               <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: '4896px', transform: 'translate3d(-1728px, 0px, 0px)' }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
-                     <figure>
-                        <img src="./images/card3.jpg" alt="" />
-                     </figure>
-                     <div><h2>Bike Services</h2>
-                        <a href="#">Enquire Now</a></div>
-                  </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Computer Repair</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Security System Dealers</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide" data-slick-index="0" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/cardImg1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="1" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Car Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card3.jpg" alt="" />
-                        </figure>
-                        <div><h2>Bike Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="3" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Computer Repair</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="4" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Security System Dealers</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="5" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide" data-slick-index="6" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/cardImg1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="8" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Car Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="9" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card3.jpg" alt="" />
-                        </figure>
-                        <div><h2>Bike Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="10" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Computer Repair</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="11" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Security System Dealers</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li></div></div>
-
-
-                  <span href="" data-role="none"
-                     className="ps_prev5" style={{ display: "block" }}>Previous</span><span href="" data-role="none" className="ps_next5" style={{ display: "block" }}>Next</span></ul>
+               <div className="slider mb-30">
+                  <AliceCarousel
+                     mouseTracking
+                     disableDotsControls
+                     disableButtonsControls
+                     items={renderItems()}
+                     ref={repairCarousel}
+                     responsive={{
+                        0: { items: 1 },
+                        600: { items: 3 },
+                        1024: { items: 5 },
+                     }}
+                  />
+                  <button className="ps_prev5" onClick={() => repairCarousel.current.slidePrev()}>Previous</button>
+                  <button className="ps_next5" onClick={() => repairCarousel.current.slideNext()}>Next</button>
+               </div>
             </section>
             <section className="center">
                <h2 className="headingType1">Daily Needs</h2>
-               <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "4896px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
-                     <figure>
-                        <img src="./images/dnThumb3.jpg" alt="" />
-                     </figure>
-                     <div><h2>Electrician</h2>
-                        <a href="#">Enquire Now</a></div>
-                  </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Pest Control</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Plumbing</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="0" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Grocery</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="1" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Movies</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb3.jpg" alt="" />
-                        </figure>
-                        <div><h2>Electrician</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="3" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Pest Control</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="4" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Plumbing</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide" data-slick-index="5" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide" data-slick-index="6" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Grocery</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="8" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Movies</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="9" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb3.jpg" alt="" />
-                        </figure>
-                        <div><h2>Electrician</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="10" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Pest Control</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="11" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/dnThumb5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Plumbing</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li></div></div>
-
-                  <span href="" data-role="none" className="ps_prev5" style={{ display: "block" }}>Previous</span><span href="" data-role="none" className="ps_next5" style={{ display: "block" }}>Next</span></ul></section>
+               <div className="slider mb-30">
+                  <AliceCarousel
+                     mouseTracking
+                     disableDotsControls
+                     disableButtonsControls
+                     items={dailyRenderItems()}
+                     ref={dailyCarousel}
+                     responsive={{
+                        0: { items: 1 },
+                        600: { items: 3 },
+                        1024: { items: 5 },
+                     }}
+                  />
+                  <button className="ps_prev5" onClick={() => dailyCarousel.current.slidePrev()}>Previous</button>
+                  <button className="ps_next5" onClick={() => dailyCarousel.current.slideNext()}>Next</button>
+               </div>
+            </section>
             <section className="center">
                <h2 className="headingType1">Health &amp; Wellness</h2>
-               <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "4896px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType1 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
-                     <figure>
-                        <img src="./images/helthThumb3.jpg" alt="" />
-                     </figure>
-                     <div><h2>Salons</h2>
-                        <a href="#">Enquire Now</a></div>
-                  </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Spa $ Massage</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Yoga classNamees</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Gym</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="0" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Gym</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="1" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Beauty Parlours</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb3.jpg" alt="" />
-                        </figure>
-                        <div><h2>Salons</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="3" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Spa $ Massage</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-active" data-slick-index="4" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Yoga classNamees</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide" data-slick-index="5" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Gym</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide" data-slick-index="6" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb1.jpg" alt="" />
-                        </figure>
-                        <div><h2>Gym</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="8" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Beauty Parlours</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="9" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb3.jpg" alt="" />
-                        </figure>
-                        <div><h2>Salons</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="10" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb4.jpg" alt="" />
-                        </figure>
-                        <div><h2>Spa $ Massage</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li><li className="cardType1 slick-slide slick-cloned" data-slick-index="11" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/helthThumb5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Yoga classNamees</h2>
-                           <a href="#">Enquire Now</a></div>
-
-                     </li></div></div>
-                  <span href="" data-role="none" className="ps_prev5" style={{ display: "block" }}>Previous</span><span href="" data-role="none" className="ps_next5" style={{ display: "block" }}>Next</span></ul></section>
+               <div className="slider mb-30">
+                  <AliceCarousel
+                     mouseTracking
+                     disableDotsControls
+                     disableButtonsControls
+                     items={helthRenderItems()}
+                     ref={healthCarousel}
+                     responsive={{
+                        0: { items: 1 },
+                        600: { items: 3 },
+                        1024: { items: 5 },
+                     }}
+                  />
+                  <button className="ps_prev5" onClick={() => healthCarousel.current.slidePrev()}>Previous</button>
+                  <button className="ps_next5" onClick={() => healthCarousel.current.slideNext()}>Next</button>
+               </div>
+            </section>
          </div>
          <div className="borderSec">
             <section className="center">
                <h2 className="headingType1">Popular Searches</h2>
-               <ul className="slider mb-30 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "5184px", transform: "translate3d(-2016px, 0px, 0px)" }}><li className="cardType2 slick-slide slick-cloned" data-slick-index="-5" aria-hidden="true" style={{ width: "258px" }}>
-                     <figure>
-                        <img src="./images/card7.jpg" alt="" />
-                     </figure>
-                     <div><h2>Ac Services</h2>
-                        <a href="#">Enquire Now</a></div>
-                  </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card8.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card6.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card7.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide" data-slick-index="0" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/cardImg2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide" data-slick-index="1" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card6.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-active" data-slick-index="3" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card7.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-active" data-slick-index="4" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card8.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-active" data-slick-index="5" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-active" data-slick-index="6" aria-hidden="false" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card6.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide" data-slick-index="7" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card7.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="8" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/cardImg2.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="9" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card5.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="10" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card6.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="11" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card7.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li><li className="cardType2 slick-slide slick-cloned" data-slick-index="12" aria-hidden="true" style={{ width: "258px" }}>
-                        <figure>
-                           <img src="./images/card8.jpg" alt="" />
-                        </figure>
-                        <div><h2>Ac Services</h2>
-                           <a href="#">Enquire Now</a></div>
-                     </li></div></div>
-                  <span href="" data-role="none" className="ps_prev5" style={{ display: "block" }}>Previous</span><span href="" data-role="none" className="ps_next5" style={{ display: "block" }}>Next</span></ul>
+               <div className="slider mb-30">
+                  <AliceCarousel
+                     mouseTracking
+                     disableDotsControls
+                     disableButtonsControls
+                     items={PopularSearchesRenderItems()}
+                     ref={popularSearchesCarousel}
+                     responsive={{
+                        0: { items: 1 },
+                        600: { items: 3 },
+                        1024: { items: 5 },
+                     }}
+                  />
+                  <button className="ps_prev5" onClick={() => popularSearchesCarousel.current.slidePrev()}>Previous</button>
+                  <button className="ps_next5" onClick={() => popularSearchesCarousel.current.slideNext()}>Next</button>
+               </div>
             </section>
             <section className="center mb-30">
                <h2 className="headingType1">Recently Activity</h2>
@@ -748,106 +731,37 @@ const Home = (props) => {
                <div className="loadMore"><a href="#">Load More</a></div>
             </section>
             <section className="center mb-30">
-               <h2 className="headingType1">heading</h2>
-               <ul className="slider2 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "4800px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType4 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "450px" }}>
-                     <figure><img src="./images/cardType4-2.jpg" alt="" /></figure>
-                     <article>
-                        <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                           Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                           Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                        <a href="#" className="link_btn">Explore</a>
-                     </article>
-                  </li><li className="cardType4 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-3.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-4.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide slick-active" data-slick-index="0" aria-hidden="false" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-1.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide slick-active" data-slick-index="1" aria-hidden="false" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-2.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-3.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide" data-slick-index="3" aria-hidden="true" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-4.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide slick-cloned" data-slick-index="4" aria-hidden="true" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-1.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-2.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li><li className="cardType4 slick-slide slick-cloned" data-slick-index="6" aria-hidden="true" style={{ width: "450px" }}>
-                        <figure><img src="./images/cardType4-3.jpg" alt="" /></figure>
-                        <article>
-                           <p>Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy Text Dummy
-                              Dummy Text Dummy Text Dummy Text Dummy...</p>
-
-                           <a href="#" className="link_btn">Explore</a>
-                        </article>
-                     </li></div></div>
-                  <span href="" data-role="none" className="ps_prev5" style={{ display: "block" }}>Previous</span><span href="" data-role="none" className="ps_next5" style={{ display: "block" }}>Next</span></ul>
+               <h2 className="headingType1">Heading</h2>
+               <AliceCarousel
+                  mouseTracking
+                  disableDotsControls
+                  disableButtonsControls
+                  items={headingRenderItems()}
+                  ref={headingCarousel}
+                  responsive={{
+                     0: { items: 1 },
+                     1024: { items: 3 },
+                  }}
+               />
+               <button className="ps_prev5" onClick={() => headingCarousel.current.slidePrev()}>Previous</button>
+               <button className="ps_next5" onClick={() => headingCarousel.current.slideNext()}>Next</button>
             </section>
             <section className="center mb-30">
                <h2 className="headingType1">Popular Brands</h2>
-               <ul className="slider2 slick-initialized slick-slider">
-                  <div aria-live="polite" className="slick-list draggable" tabIndex="0"><div className="slick-track" style={{ opacity: 1, width: "5280px", transform: "translate3d(-1440px, 0px, 0px)" }}><li className="cardType5 slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="0" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg1.jpg" className="transition" alt="" /><div className="tl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="1" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="bl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-active" data-slick-index="2" aria-hidden="false" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide" data-slick-index="3" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide" data-slick-index="4" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="br"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="5" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg1.jpg" className="transition" alt="" /><div className="tl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="6" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg2.jpg" className="transition" alt="" /><div className="bl"><span>Dummy Text</span>Dummy Text </div></a></li><li className="cardType5 slick-slide slick-cloned" data-slick-index="7" aria-hidden="true" style={{ width: "450px" }}><a href="#"><img src="./images/pbImg3.jpg" className="transition" alt="" /><div className="tr"><span>Dummy Text</span>Dummy Text </div></a></li></div></div>
-                  <span href="" data-role="none" className="ps_prev5" style={{ display: "block" }}>Previous</span><span href="" data-role="none" className="ps_next5" style={{ display: "block" }}>Next</span></ul>
+               <AliceCarousel
+                  mouseTracking
+                  disableDotsControls
+                  disableButtonsControls
+                  items={popularBrandsRenderItems()}
+                  ref={popularBrandsCarousel}
+                  responsive={{
+                     0: { items: 1 },
+                     600: { items: 2 },
+                     1024: { items: 3 },
+                  }}
+               />
+               <button className="ps_prev5" onClick={() => popularBrandsCarousel.current.slidePrev()}>Previous</button>
+               <button className="ps_next5" onClick={() => popularBrandsCarousel.current.slideNext()}>Next</button>
             </section>
          </div>
          <div className="sMediaSec">
