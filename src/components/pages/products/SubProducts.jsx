@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const SubProducts = (props) => {
    const navigate = useNavigate();
@@ -10,10 +10,7 @@ const SubProducts = (props) => {
       setNavOpen(!isNavOpen);
    };
 
-   const iconClasses = ['iconPinkBg', 'iconYellowBg', 'iconSkyBg', 'iconGreenBg'];
-
-
-
+   const iconclassNamees = ['iconPinkBg', 'iconYellowBg', 'iconSkyBg', 'iconGreenBg'];
 
    return (
       <>
@@ -103,38 +100,48 @@ const SubProducts = (props) => {
                </section>
             </header>
          </div>
-         <section class="center searchSec mb-30 pt-30">
+         <section className="center searchSec mb-30 pt-30">
             <aside>
                <h2>Everything Near Mira Bhayendar Road</h2>
-               <div class="top_search">
-                  <input type="text" class="site_search" onfocus="if(this.value=='Site Search'){this.value=''}"
+               <div className="top_search">
+                  <input type="text" className="site_search" onFocus="if(this.value=='Site Search'){this.value=''}"
                      onblur="if(this.value==''){this.value='Site Search'}" value="Site Search" />
-                  <input class="site_search_btn" type="button" value="" />
+                  <input className="site_search_btn" type="button" value="" />
                </div>
             </aside>
          </section>
-         <section class="center banner mb-30">
+         <section className="center banner mb-30">
             <img src="./images/banner.jpg" alt="" />
          </section>
-         <section class="center  mb-30">
-            <div class="top_search">
-               <input type="text" class="site_search" onfocus="if(this.value=='Site Search'){this.value=''}" onblur="if(this.value==''){this.value='Site Search'}" value="Site Search" />
+         <section className="center  mb-30">
+            <div className="top_search">
+               <input type="text" className="site_search" onFocus="if(this.value=='Site Search'){this.value=''}" onblur="if(this.value==''){this.value='Site Search'}" value="Site Search" />
             </div>
          </section>
-         <section class="center quickLinks mb-30">
-            {children?.map((child, index) => (
-               <a
-                  href=""
-                  key={child.businessCategoryID}
-               // onClick={() => handleCategoryClick(child)}
-               >
-                  <span className={iconClasses[index % iconClasses.length]}>
-                     <img src={`http://staging.namastelocals.com/AppIcons/${child.categoryIcon}`} alt={child.categoryName} />
-                  </span>
-                  {child.categoryName}
-               </a>
-            ))}
-            <a href="#"><span class="iconPinkBg"><img src="./images/icon-more.png" alt="" /></span>more</a>
+         <section className="center quickLinks mb-30">
+            {children?.map((child, index) => {
+               return (
+                  <Link
+                     to={"/list-product"}
+                     key={child.businessCategoryID}
+                     state={{
+                        businessCategoryID: child.businessCategoryID,
+                        pincode: "700001",
+                     }}
+                  >
+                     <span className={iconclassNamees[index % iconclassNamees.length]}>
+                        <img
+                           src={`http://staging.namastelocals.com/AppIcons/${child.categoryIcon}`}
+                           alt={child.categoryName}
+                        />
+                     </span>
+                     {child.categoryName}
+                  </Link>
+               );
+            })}
+
+
+            <a href="#"><span className="iconPinkBg"><img src="./images/icon-more.png" alt="" /></span>more</a>
          </section>
          <div>
             <footer>

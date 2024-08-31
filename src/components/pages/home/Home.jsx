@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { API_BUSINESS_CATEGORY_LIST } from '../../../config/Api';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
@@ -33,10 +33,6 @@ const Home = (props) => {
          .catch((err) => {
             console.log(err);
          });
-   };
-
-   const handleCategoryClick = (category) => {
-      navigate('/subProducts', { state: { children: category.children } });
    };
 
    const categoriesToShow = showMore ? businessCategoryData : businessCategoryData.slice(0, 19);
@@ -548,23 +544,28 @@ const Home = (props) => {
             </section>
             <section className="center quickLinks">
                {categoriesToShow?.map((category, index) => (
-                  <a
-                     href=""
+                  <Link
+                     to={category.children && category.children.length > 0 ? "/subProducts" : "/list-product"}
                      key={category.businessCategoryID}
-                     onClick={() => handleCategoryClick(category)}
+                     state={{
+                        businessCategoryID: category.businessCategoryID,
+                        categoryName: category.categoryName,
+                        pincode: "700001",
+                        children: category.children
+                     }}
                   >
                      <span className={iconClasses[index % iconClasses.length]}>
                         <img src={`http://staging.namastelocals.com/AppIcons/${category.categoryIcon}`} alt={category.categoryName} />
                      </span>
                      {category.categoryName}
-                  </a>
+                  </Link>
                ))}
-               <a href="#" onClick={() => setShowMore(!showMore)}>
+               <Link to="#" onClick={() => setShowMore(!showMore)}>
                   <span className={showMore ? 'iconCloseBg' : 'iconMoreBg'}>
                      <img src={`./images/icon-${showMore ? 'cross' : 'more'}.png`} alt={showMore ? 'Less' : 'More'} />
                   </span>
                   {showMore ? 'Less' : 'More'}
-               </a>
+               </Link>
             </section>
          </div>
          <div className="borderSec">
